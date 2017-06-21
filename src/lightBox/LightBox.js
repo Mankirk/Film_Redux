@@ -1,8 +1,8 @@
 import React from "react";
 import "./LightBox.css";
 
-const LightBox = ( { lightBoxData, showingLightBox, toggleLightBox } ) => (
-    <div className={ showingLightBox } id="shadow" >
+const LightBox = ( { lightBoxData } ) => (
+    <div className="hidden" id="shadow" >
         <div className="lightBox" id="lightBox">
             <iframe src={ lightBoxData.ytUrl } />
             <div className="details">
@@ -18,7 +18,7 @@ const LightBox = ( { lightBoxData, showingLightBox, toggleLightBox } ) => (
                     <p className="name">Year:</p>
                     <p className="value">{ lightBoxData.year}</p>
                 </div>
-                <button onClick={ toggleLightBox }>Close Me</button>
+                <button >Close Me</button>
             </div>
         </div>
     </div> );

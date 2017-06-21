@@ -1,9 +1,9 @@
-export default function ( state = {}, action ) {
-    switch ( action.type ) {
-        case "FETCH":
-            // console.log( `payload: ${ action.payload }` );
-            return action.payload;
-            break;
+export default function ( state = [], action ) {
+    if ( action.type === "FETCH_MOVIES_COMPLETED" ) {
+        const addWatchlistProp = action.movies.map( ( movie ) =>
+         Object.assign( movie, { inWatchList: false } ) );
+
+        return state.concat( addWatchlistProp );
     }
     return state;
 }

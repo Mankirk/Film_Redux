@@ -39,6 +39,16 @@ app.post( "/getMovies", ( req, res ) => {
     res.json( chunk );
 } );
 
+app.get( "/getMovies/:pagenumber", ( req, res ) => {
+    const scope = req.params.pagenumber;
+    const chunk = [];
+    console.log( `requested page ${ scope }` );
+    for ( let i = ( scope - 1 ) * 10; i < scope * 10; i += 1 ) {
+        chunk.push( data[ i ] );
+    }
+    res.json( chunk );
+} );
+
 app.listen( port, ( err ) => {
     if ( err ) {
         console.log( err );

@@ -1,34 +1,28 @@
-export default function() {
-    return [
-        {
-            titleOriginal: "( POUR LA PEAU D’UN FLIC )",
-            titleRo: "AFACEREA PIGOT",
-            country: "FRANŢA ",
-            year: "1981",
-            url: "/film/afacerea-pigot",
-            id: 1,
-            ytUrl: "https://www.youtube.com/embed/BP7cZ0CHXaQ",
-            inWatchList: false,
-        },
-        {
-            titleOriginal: "( BAAHUBALI 2: THE CONCLUSION )",
-            titleRo: "BAAHUBALI 2: FINALUL",
-            country: "INDIA ",
-            year: "2016",
-            url: "/film/baahubali-2-finalul",
-            id: 2,
-            ytUrl: "https://www.youtube.com/embed/G62HrubdD6o",
-            inWatchList: false,
-        },
-        {
-            titleOriginal: "( CALIFORNIA DREAMIN’ (ENDLESS) )",
-            titleRo: "CALIFORNIA DREAMIN’ (NESFÂRŞIT)",
-            country: "ROMÂNIA ",
-            year: "2007",
-            url: "/film/california-dreamin-nesfarsit",
-            id: 3,
-            ytUrl: "https://www.youtube.com/embed/75NoNVMkQwU",
-            inWatchList: false,
-        },
-    ];
+export default function( state = [], action ) {
+    if ( action.type === "FETCH_MOVIES_COMPLETED" ) {
+        const addWatchlistProp = action.movies.map( ( movie ) =>
+             Object.assign( movie, { inWatchList: false } ) );
+
+        return state.concat( addWatchlistProp );
+    }
+
+    if ( action.type === "ADD_TO_WATCHLIST" ) {
+        return state.map( movie => {
+            if ( movie.id === action.payload.id ) {
+                return Object.assign( { }, movie, { inWatchList: true } );
+            }
+
+            return movie;
+        } );
+    }
+    if ( action.type === "REMOVE_FROM_WATCHLIST" ) {
+        return state.map( movie => {
+            if ( movie.id === action.payload.id ) {
+                return Object.assign( { }, movie, { inWatchList: false } );
+            }
+
+            return movie;
+        } );
+    }
+    return state;
 }

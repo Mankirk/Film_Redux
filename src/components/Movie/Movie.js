@@ -1,7 +1,7 @@
 import React from "react";
 import "./Movie.css";
 
-const Movie = ( { movieData, index } ) => {
+const Movie = ( { movieData, index, changeLightBoxData, toggleLightBox, addToWatchList, removeFromWatchList } ) => {
     const getLightBox = () => {
         changeLightBoxData( movieData );
         toggleLightBox();
@@ -12,7 +12,7 @@ const Movie = ( { movieData, index } ) => {
     };
 
     const handleRemove = () => {
-        removeFromWatchList( movieData.id );
+        removeFromWatchList( movieData );
     };
     const linkMod = movieData.ytUrl.split( "/" );
     const extracted = linkMod[ 4 ];
@@ -25,11 +25,11 @@ const Movie = ( { movieData, index } ) => {
             </div>
             <div className="label">
                 <p className="name" >Country:</p>
-                <p className="value" >{ movieData.country}</p>
+                <p className="value" >{ movieData.country }</p>
             </div>
             <div className="label">
                 <p className="name" >Year:</p>
-                <p className="value" >{ movieData.year}</p>
+                <p className="value" >{ movieData.year }</p>
             </div>
         </div>
         <div className="buttons">

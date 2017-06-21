@@ -1,17 +1,32 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { addToWatchList, removeFromWatchList } from "../actions/add&removeWatchList";
+import { toggleLightBox, changeLightBoxData } from "../actions/index";
 import { fetchMovies } from "../actions/fetch";
 import "./MovieList.css";
 
-import Nav from "../components/Nav/Nav";
 import Movie from "../components/Movie/Movie";
 import LightBox from "../components/lightBox/LightBox";
+import Nav from "../components/Nav/Nav";
 
 class MovieList extends Component {
+    constructor ( props ) {
+        super( props );
+        this.handleScroll = this.handleScroll.bind( this );
+    }
 
     componentDidMount() {
-        this.props.fetchMovies( 1 );
+        this.props.fetchMovies( this.props.nrOfPages );
+        window.addEventListener( "scroll", this.handleScroll );
+    }
+
+    handleScroll() {
+        const docHeight = document.documentElement.scrollHeight;
+        if ( ( window.innerHeight + window.scrollY === docHeight ) ) {
+            console.log( "reached bottom" );
+            this.props.fetchMovies( this.props.nrOfPages );
+        }
     }
 
     createMovieItems() {
@@ -19,30 +34,47 @@ class MovieList extends Component {
             <Movie
                 movieData={ movie }
                 index={ index }
+                changeLightBoxData={ this.props.changeLightBoxData }
+                toggleLightBox={ this.props.toggleLightBox }
+                addToWatchList={ this.props.addToWatchList }
+                removeFromWatchList={ this.props.removeFromWatchList }
             /> ) );
     }
 
     render() {
-        const { movies } = this.props;
-        console.log( "these are the movies", movies );
+        console.log( "pages", this.props.nrOfPages );
+        const movies = this.props.movies;
+        const watchList = movies.filter( ( movie ) => movie.inWatchList );
         return (
             <div className="movieList">
-                <Nav watchlist={ movies.filter( .... ) } />
-                <LightBox />
+                <Nav watchList={ watchList } removeFromWatchList={ this.props.removeFromWatchList } />
+                <LightBox
+                    lightBoxData={ this.props.lightBoxData }
+                    showingLightBox={ this.props.showingLightBox }
+                    toggleLightBox={ this.props.toggleLightBox }
+                />
                 { this.createMovieItems() }
             </div> );
     }
 }
 
-function mapStateToProps( state ) {
-    console.log( state );
-    return { movies: state.movies };
+function matchDispatchToProps( dispatch ) {
+    return bindActionCreators( {
+        changeLightBoxData,
+        toggleLightBox,
+        addToWatchList,
+        removeFromWatchList,
+        fetchMovies,
+    }, dispatch );
 }
 
-function matchDispatchToProps( dispatch ) {
+function mapStateToProps( state ) {
     return {
-        fetchMovies: ( ...args ) => dispatch( fetchMovies( ...args ) )
-    }
+        movies: state.movies,
+        lightBoxData: state.lightBoxData,
+        showingLightBox: state.showingLightBox,
+        nrOfPages: state.nrOfPages,
+    };
 }
 
 export default connect( mapStateToProps, matchDispatchToProps )( MovieList );

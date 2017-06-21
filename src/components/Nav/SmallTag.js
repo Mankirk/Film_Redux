@@ -1,10 +1,10 @@
 import React from "react";
 import "./SmallTag.css";
 
-const SmallTag = ( { watchListElement, watchListLength } ) => {
-    /* const handleDrop = () => {
+const SmallTag = ( { watchListElement, removeFromWatchList, watchListLength } ) => {
+    const handleDrop = () => {
         console.log( "dropping" );
-        removeFromWatchList( watchListElement.id );
+        removeFromWatchList( watchListElement );
     };
 
     if ( !watchListElement.hasOwnProperty( "titleOriginal" ) ) {
@@ -13,13 +13,13 @@ const SmallTag = ( { watchListElement, watchListLength } ) => {
                 <p>WatchList is empty, you pleb!</p>
             </div>
         );
-    }*/
+    }
     const linkMod = watchListElement.ytUrl.split( "/" );
     const extracted = linkMod[ 4 ];
     return ( <div className="singTag">
         <p>{ watchListElement.titleOriginal }</p>
         <img src={ `http://img.youtube.com/vi/${ extracted }/hqdefault.jpg` } />
-        <button >Drop</button>
+        <button onClick={ handleDrop } >Drop</button>
     </div> );
 };
 

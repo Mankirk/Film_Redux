@@ -18,7 +18,7 @@ const LightBox = ( { lightBoxData, showingLightBox, toggleLightBox } ) => (
                     <p className="name">Year:</p>
                     <p className="value">{ lightBoxData.year}</p>
                 </div>
-                <button onClick={ toggleLightBox }>Close Me</button>
+                <button onClick={ toggleLightBox } >Close Me</button>
             </div>
         </div>
     </div> );
