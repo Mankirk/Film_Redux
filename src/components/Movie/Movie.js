@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import "./Movie.css";
 
 const Movie = ( { movieData, index, changeLightBoxData, toggleLightBox, addToWatchList, removeFromWatchList } ) => {
@@ -41,7 +42,7 @@ const Movie = ( { movieData, index, changeLightBoxData, toggleLightBox, addToWat
             >
                 { movieData.inWatchList ? "Remove From WatchList" : "Add To Watchlist" }
             </button>
-            <button className="getDetails" onClick={ getLightBox }>See Details</button>
+            <button className="getDetails"><Link to={ `/movies/${ movieData.id }` }>See Details</Link></button>
         </div>
     </div> );
 };

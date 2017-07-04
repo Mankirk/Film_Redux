@@ -1,0 +1,26 @@
+.movie-detail {
+    position: relative;
+    top: 50px;
+}
+
+.detail-contents {
+    display: flex;
+}
+
+.selectMenu {
+    display: flex;
+}
+
+.back-link {
+    background-color: blue;
+    color : white;
+    border: none;
+    height: 60px;
+    width : 100px;
+    text-align: center;
+}
+
+.back-link a {
+    color:white;
+    text-decoration: none;
+}

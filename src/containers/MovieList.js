@@ -23,7 +23,7 @@ class MovieList extends Component {
 
     handleScroll() {
         const docHeight = document.documentElement.scrollHeight;
-        if ( ( window.innerHeight + window.scrollY === docHeight ) ) {
+        if ( ( window.innerHeight + window.scrollY === docHeight ) && !( this.props.nrOfPages >= 11 ) ) {
             console.log( "reached bottom" );
             this.props.fetchMovies( this.props.nrOfPages );
         }
@@ -47,7 +47,6 @@ class MovieList extends Component {
         const watchList = movies.filter( ( movie ) => movie.inWatchList );
         return (
             <div className="movieList">
-                <Nav watchList={ watchList } removeFromWatchList={ this.props.removeFromWatchList } />
                 <LightBox
                     lightBoxData={ this.props.lightBoxData }
                     showingLightBox={ this.props.showingLightBox }

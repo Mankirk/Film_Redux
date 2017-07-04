@@ -1,5 +1,8 @@
 import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import "./LightBox.css";
+import { toggleLightBox, changeLightBoxData } from "../../actions/index";
 
 const LightBox = ( { lightBoxData, showingLightBox, toggleLightBox } ) => (
     <div className={ showingLightBox } id="shadow" >
